@@ -1,0 +1,253 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diagnosis Questionnaire</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top right, #002b80, #001f3f);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 1rem 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    nav .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #00d4ff;
+      text-shadow: 0 2px 5px #000;
+    }
+
+    nav ul {
+      display: flex;
+      flex-wrap: wrap;
+      list-style: none;
+    }
+
+    nav ul li {
+      margin-left: 1.5rem;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: #00d4ff;
+    }
+
+    .container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 3rem 1rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      color: #00d4ff;
+      margin-bottom: 1.5rem;
+    }
+
+    .options button, textarea {
+      display: block;
+      width: 100%;
+      padding: 1rem;
+      margin: 0.5rem 0;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.08);
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .options button:hover {
+      background: #00c6ff;
+    }
+
+    .options textarea {
+      resize: none;
+      background: rgba(255,255,255,0.08);
+      color: white;
+      height: 100px;
+      border: 1px solid #00d4ff;
+    }
+
+    .nav-btn {
+      margin-top: 1.5rem;
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .nav-btn:hover {
+      transform: scale(1.05);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      background: rgba(0, 0, 0, 0.1);
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">Skin Health Analysis System</div>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Features</a></li>
+      <li><a href="#">How it Works</a></li>
+      <li><a href="#">FAQ</a></li>
+      <li><a href="#">Register</a></li>
+      <li><a href="#">Login</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <div class="card">
+      <h2 id="question">Loading...</h2>
+      <div class="options" id="options"></div>
+      <button class="nav-btn" id="nextBtn">Next</button>
+    </div>
+  </div>
+
+  <footer>
+    * The scan result is not a diagnosis. For accurate diagnosis and treatment, consult your doctor.
+  </footer>
+
+  <script>
+    const questions = [
+      {
+        text: "Do you have any visible skin irritation or unusual patches?",
+        options: ["Yes, red or itchy patches", "Yes, unusual mole or mark", "No visible symptoms"]
+      },
+      {
+        text: "How long have you noticed the symptoms?",
+        options: ["Less than a week", "1-4 weeks", "Over a month"]
+      },
+      {
+        text: "Is there any pain, burning, or discomfort associated?",
+        options: ["Yes, it's painful", "Just itchy", "No discomfort"]
+      },
+      {
+        text: "Have you used any medication or cream recently?",
+        options: ["Yes, prescribed by a doctor", "Yes, over-the-counter", "No medication used"]
+      },
+      {
+        text: "Please describe your symptoms in your own words:",
+        input: true
+      }
+    ];
+
+    let currentQuestion = 0;
+    const answers = [];
+
+    const questionEl = document.getElementById('question');
+    const optionsEl = document.getElementById('options');
+    const nextBtn = document.getElementById('nextBtn');
+
+    function loadQuestion() {
+      optionsEl.innerHTML = '';
+      const q = questions[currentQuestion];
+      questionEl.textContent = q.text;
+
+      if (q.input) {
+        const textarea = document.createElement('textarea');
+        textarea.placeholder = 'Type your symptoms here...';
+        optionsEl.appendChild(textarea);
+      } else {
+        q.options.forEach(opt => {
+          const btn = document.createElement('button');
+          btn.textContent = opt;
+          btn.onclick = () => {
+            answers[currentQuestion] = opt;
+            highlightButton(btn);
+          };
+          optionsEl.appendChild(btn);
+        });
+      }
+
+      nextBtn.textContent = (currentQuestion === questions.length - 1) ? 'Start Diagnosis' : 'Next';
+    }
+
+    function highlightButton(btn) {
+      const buttons = optionsEl.querySelectorAll('button');
+      buttons.forEach(b => b.style.background = 'rgba(255,255,255,0.08)');
+      btn.style.background = '#00c6ff';
+    }
+
+   nextBtn.onclick = () => {
+  const q = questions[currentQuestion];
+  if (q.input) {
+    const userText = optionsEl.querySelector('textarea').value.trim();
+    if (!userText) return alert('Please enter your symptoms.');
+    answers[currentQuestion] = userText;
+  } else if (!answers[currentQuestion]) {
+    return alert('Please select an option.');
+  }
+
+  if (currentQuestion < questions.length - 1) {
+    currentQuestion++;
+    loadQuestion();
+  } else {
+window.location.href = "/upload";
+
+  }
+};
+
+
+    loadQuestion();
+  </script>
+</body>
+</html>

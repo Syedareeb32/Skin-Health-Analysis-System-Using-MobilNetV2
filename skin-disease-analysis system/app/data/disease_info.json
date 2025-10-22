@@ -1,0 +1,42 @@
+{
+  "Cellulitis": {
+    "detail": "Cellulitis is a bacterial infection of the skin and tissues beneath the skin.",
+    "precautions": "Keep wounds clean, avoid scratching, maintain good hygiene.",
+    "treatment": "Antibiotic therapy, rest, elevation of affected area."
+  },
+  "Impetigo": {
+    "detail": "Impetigo is a contagious skin infection that causes red sores.",
+    "precautions": "Avoid close contact, wash hands frequently, do not share towels.",
+    "treatment": "Topical or oral antibiotics as prescribed."
+  },
+  "Athlete's Foot": {
+    "detail": "A fungal infection that usually begins between the toes.",
+    "precautions": "Keep feet dry, avoid walking barefoot in public showers.",
+    "treatment": "Antifungal creams or sprays."
+  },
+  "Nail Fungus": {
+    "detail": "A fungal infection of the fingernails or toenails.",
+    "precautions": "Keep nails trimmed and dry, avoid damp shoes.",
+    "treatment": "Oral antifungal medication, medicated nail polish."
+  },
+  "Ringworm": {
+    "detail": "A common fungal infection that causes a circular rash.",
+    "precautions": "Avoid skin-to-skin contact, don't share personal items.",
+    "treatment": "Antifungal creams, powders, or oral medication."
+  },
+  "Cutaneous Larva Migrans": {
+    "detail": "A skin disease caused by hookworm larvae migration.",
+    "precautions": "Avoid walking barefoot in sandy or moist soil.",
+    "treatment": "Antiparasitic medications like albendazole or ivermectin."
+  },
+  "Chickenpox": {
+    "detail": "A viral infection causing an itchy, blister-like rash.",
+    "precautions": "Avoid contact with infected individuals, vaccination.",
+    "treatment": "Antihistamines for itching, antiviral drugs in severe cases."
+  },
+  "Shingles": {
+    "detail": "A reactivation of the chickenpox virus causing painful rash.",
+    "precautions": "Vaccination, avoid contact with people who haven't had chickenpox.",
+    "treatment": "Antiviral medications, pain relief."
+  }
+}

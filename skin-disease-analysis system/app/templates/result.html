@@ -1,0 +1,117 @@
+
+
+<!-- templates/result.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diagnosis Result - AI Dermatologist</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* [Your Original Design Preserved] */
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Roboto', sans-serif; }
+    body { background: radial-gradient(circle at top right, #002b80, #001f3f); color: white; display: flex; flex-direction: column; min-height: 100vh; }
+    nav { background: rgba(0, 0, 0, 0.3); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); }
+    nav .logo { font-size: 1.8rem; font-weight: 700; color: #00d4ff; }
+    nav ul { display: flex; list-style: none; }
+    nav ul li { margin-left: 1.5rem; }
+    nav ul li a { color: #ffffff; text-decoration: none; transition: color 0.3s; }
+    nav ul li a:hover { color: #00d4ff; }
+    .container { max-width: 1200px; margin: auto; padding: 2rem; display: flex; flex-direction: column; gap: 2rem; }
+    .card { background: rgba(255, 255, 255, 0.05); border-radius: 16px; padding: 1.5rem; box-shadow: 0 0 20px rgba(0,0,0,0.3); }
+    .card h3 { color: #00d4ff; margin-bottom: 1rem; }
+    .info-grid { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .info-grid div { flex: 1 1 200px; background: rgba(255,255,255,0.08); padding: 0.8rem; border-radius: 10px; }
+    .image-prediction { display: flex; flex-wrap: wrap; align-items: center; gap: 2rem; }
+    .image-prediction img { width: 300px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.3); }
+    .summary-text { flex: 1; }
+    .three-cards { display: flex; justify-content: space-between; gap: 1rem; }
+    .three-cards .card { flex: 1; }
+   .generate-btn {
+  margin-top: 2rem;
+  display: inline-block;
+  text-align: center;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: linear-gradient(to right, #00c6ff, #0072ff);
+  color: white;
+  text-decoration: none;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 118, 255, 0.4);
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+.generate-btn:hover {
+  background: linear-gradient(to right, #0072ff, #00c6ff);
+  transform: scale(1.05);
+}
+
+    footer { margin-top: auto; text-align: center; color: #ccc; font-size: 0.9rem; background: rgba(0, 0, 0, 0.1); padding: 1rem; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">Skin Health Analysis System</div>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="#">Features</a></li>
+      <li><a href="#">How it Works</a></li>
+      <li><a href="#">FAQ</a></li>
+      <li><a href="#">Register</a></li>
+      <li><a href="#">Login</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <div class="card">
+      <h3>Patient Information</h3>
+      <div class="info-grid">
+        <div><strong>Name:</strong> {{ name }}</div>
+        <div><strong>Age:</strong> {{ age }}</div>
+        <div><strong>Address:</strong> {{ address }}</div>
+        <div><strong>Mobile:</strong> {{ mobile }}</div>
+        <div><strong>Date:</strong> {{ date }}</div>
+        <div><strong>Time:</strong> {{ time }}</div>
+      </div>
+    </div>
+
+    <div class="card image-prediction">
+      <img src="{{ url_for('static', filename='uploads/' + image_filename) }}" alt="Uploaded Skin Image" />
+      <div class="summary-text">
+        <h3>Prediction Summary</h3>
+        <p><strong>Disease:</strong> {{ predicted_disease }}</p>
+        <p><strong>Prediction Score:</strong> {{ prediction_score }}%</p>
+      </div>
+    </div>
+
+    <div class="three-cards">
+      <div class="card">
+        <h3>Disease Details</h3>
+        <p>{{ disease_detail }}</p>
+      </div>
+      <div class="card">
+        <h3>Precautions</h3>
+        <p>{{ disease_precautions }}</p>
+      </div>
+      <div class="card">
+        <h3>Treatment</h3>
+        <p>{{ disease_treatment }}</p>
+      </div>
+    </div>
+
+ <a href="/generate-pdf" target="_blank" class="generate-btn">📄 Download PDF Report</a>
+
+
+  </div>
+
+  <footer>
+    * The scan result is not a diagnosis. For accurate diagnosis and treatment, consult your doctor.
+  </footer>
+</body>
+</html>

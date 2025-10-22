@@ -1,0 +1,210 @@
+
+
+<!-- upload.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upload Details - AI Dermatologist</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* [STYLE UNCHANGED - YOUR DESIGN PRESERVED] */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top right, #002b80, #001f3f);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 1rem 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    nav .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #00d4ff;
+      text-shadow: 0 2px 5px #000;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+    }
+
+    nav ul li {
+      margin-left: 1.5rem;
+    }
+
+    nav ul li a {
+      color: #ffffff;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #00d4ff;
+    }
+
+    .main-section {
+      flex: 1;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2rem;
+      border-radius: 16px;
+      max-width: 1000px;
+      width: 100%;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .form-group {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .form-group h2 {
+      margin-bottom: 1.5rem;
+      color: #00d4ff;
+    }
+
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+      border: none;
+      background: rgba(255,255,255,0.08);
+      color: white;
+      font-size: 1rem;
+    }
+
+    .form-group textarea {
+      resize: none;
+      height: 100px;
+    }
+
+    .upload-preview {
+      flex: 1;
+      min-width: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .upload-preview img {
+      width: 100%;
+      max-width: 450px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      display: none;
+    }
+
+    .button {
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      padding: 0.8rem 2rem;
+      border: none;
+      color: white;
+      border-radius: 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+      width: 100%;
+    }
+
+    .button:hover {
+      transform: scale(1.05);
+    }
+
+    .button-row {
+      display: flex;
+      gap: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      background: rgba(0, 0, 0, 0.1);
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">Skin Health Analysis System</div>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Features</a></li>
+      <li><a href="#">How it Works</a></li>
+      <li><a href="#">FAQ</a></li>
+      <li><a href="#">Register</a></li>
+      <li><a href="#">Login</a></li>
+    </ul>
+  </nav>
+
+  <section class="main-section">
+   <form class="card" method="POST" action="{{ url_for('analyze') }}" enctype="multipart/form-data">
+
+      <div class="form-group">
+        <h2>Upload Details</h2>
+        <input type="text" name="name" placeholder="Full Name" required />
+        <input type="number" name="age" placeholder="Age" required />
+        <input type="text" name="address" placeholder="Address" required />
+        <input type="tel" name="mobile" placeholder="Mobile Number" required />
+        <input type="datetime-local" name="datetime" required />
+        <textarea name="symptoms" placeholder="Describe symptoms..." required></textarea>
+
+        <div class="button-row">
+          <label for="fileUpload" class="button" style="margin-bottom: 0;">Upload Image</label>
+          <button type="submit" class="button">Analyze</button>
+        </div>
+
+        <input type="file" id="fileUpload" name="image" accept="image/*" style="display:none;" onchange="handleUpload()" />
+      </div>
+      <div class="upload-preview">
+        <img id="preview" alt="Image Preview" />
+      </div>
+    </form>
+  </section>
+
+  <footer>
+    * The scan result is not a diagnosis. For accurate diagnosis and treatment, consult your doctor.
+  </footer>
+
+  <script>
+    function handleUpload() {
+      const file = document.getElementById('fileUpload').files[0];
+      if (!file) return alert('Please upload an image.');
+      const reader = new FileReader();
+      reader.onload = () => {
+        const preview = document.getElementById('preview');
+        preview.src = reader.result;
+        preview.style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    }
+  </script>
+</body>
+</html>
